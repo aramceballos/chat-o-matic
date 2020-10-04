@@ -1,10 +1,13 @@
 import React from 'react';
+import Chat from './pages/Chat';
+import GlobalStyles from './styles/GlobalStyles';
 
 const App = (): JSX.Element => {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <>
+      <GlobalStyles />
+      <Chat />
+    </>
   );
 };
 
