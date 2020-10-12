@@ -1,4 +1,4 @@
-declare interface TMessage {
+declare interface IMessage {
   id: number;
   user: string;
   content: string;
