@@ -1,32 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Input } from './styles';
 
-type TSendMessage = (content: string) => void;
-
 interface IMessageInputProps {
-  user: string;
-  sendMessage: TSendMessage;
+  onChange: (value: string) => void;
+  onEnter: VoidFunction;
+  value: string;
 }
 
-const MessageInput = ({ user, sendMessage }: IMessageInputProps) => {
-  const [content, setContent] = useState('');
-
+const MessageInput = ({ onChange, onEnter, value }: IMessageInputProps) => {
   const handleContentChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setContent(ev.target.value);
+    onChange(ev.target.value);
   };
 
   const handleKeyUp = (ev: React.KeyboardEvent<HTMLInputElement>) => {
-    if (ev.key === 'Enter') {
-      sendMessage(content);
-      setContent('');
+    if (ev.key === 'Enter' && value.length > 0) {
+      onEnter();
     }
   };
 
   return (
     <Input
       placeholder='Type a message'
-      value={content}
+      value={value}
       onChange={handleContentChange}
       onKeyUp={handleKeyUp}
     />

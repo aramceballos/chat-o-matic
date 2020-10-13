@@ -3,6 +3,10 @@ import { gql, useQuery } from '@apollo/client';
 
 import Message from '../components/Message';
 
+interface IMessagesWithQueryProps {
+  user: string;
+}
+
 const GET_MESSAGES = gql`
   query {
     messages {
@@ -13,7 +17,7 @@ const GET_MESSAGES = gql`
   }
 `;
 
-const MessagesWithQuery = ({ user }: { user: string }) => {
+const MessagesWithQuery = ({ user }: IMessagesWithQueryProps) => {
   const { loading, error, data } = useQuery(GET_MESSAGES);
 
   if (loading) return <p>Loading...</p>;
