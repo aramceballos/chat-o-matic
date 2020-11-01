@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack-dev-server",
-    "build": "webpack --mode 'production'"
+    "build": "webpack --mode 'production'",
+    "start": "serve dist -s"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
     "graphql": "15.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "styled-components": "5.2.0"
+    "styled-components": "5.2.0",
+    "subscriptions-transport-ws": "0.9.18"
   },
   "devDependencies": {
     "@types/react": "16.9.49",

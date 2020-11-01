@@ -15,7 +15,7 @@ export const Wrapper = styled.div<WrapperProps>`
 `;
 
 export const MessageContainer = styled.div<IMessageContainerProps>`
-  max-width: 40%;
+  max-width: 60%;
   background-color: ${({ thisUser }) => (thisUser ? '#8ede8e' : '#e8e8e8')};
   margin: 10px;
   border-radius: 10px;

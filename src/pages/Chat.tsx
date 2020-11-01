@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { gql, useMutation } from '@apollo/client';
 
@@ -19,7 +19,7 @@ const MessagesContainer = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   overflow: scroll;
-  height: 92vh;
+  height: 100%;
   padding-bottom: 65px;
 `;
 
@@ -46,9 +46,17 @@ const UserInput = styled.input`
 const Chat = () => {
   const [user, setUser] = useState('Aram');
   const [content, setContent] = useState('');
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(content.length > 0);
+  const ref = useRef<HTMLDivElement>(null);
 
   const [postMessage] = useMutation(SEND_MESSAGE);
+
+  //Scroll to bottom
+  useEffect(() => {
+    setTimeout(() => {
+      ref.current?.scrollIntoView(false);
+    }, 500);
+  }, []);
 
   const sendMessage = () => {
     if (content.length > 0 && user.length > 0) {
@@ -74,7 +82,7 @@ const Chat = () => {
 
   return (
     <>
-      <MessagesContainer>
+      <MessagesContainer ref={ref}>
         <MessagesWithQuery user={user} />
       </MessagesContainer>
       <Form>

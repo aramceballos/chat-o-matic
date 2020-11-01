@@ -1,5 +1,5 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useSubscription } from '@apollo/client';
 
 import Message from '../components/Message';
 
@@ -17,18 +17,30 @@ const GET_MESSAGES = gql`
   }
 `;
 
-const MessagesWithQuery = ({ user }: IMessagesWithQueryProps) => {
-  const { loading, error, data } = useQuery(GET_MESSAGES);
+const MESSAGES_SUBSCRIPTIONS = gql`
+  subscription {
+    messages {
+      user
+      content
+    }
+  }
+`;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+const MessagesWithQuery = ({ user }: IMessagesWithQueryProps) => {
+  const { data } = useSubscription(MESSAGES_SUBSCRIPTIONS);
+
+  console.log(data);
+
+  if (!data) return null;
 
   const { messages }: { messages: IMessage[] } = data;
 
+  if (messages.length === 0) return <p>There are not messages to show</p>;
+
   return (
     <>
-      {messages.map((message) => (
-        <Message key={message.id} userMessage={user} message={message} />
+      {messages.map((message, i) => (
+        <Message key={i} userMessage={user} message={message} />
       ))}
     </>
   );
